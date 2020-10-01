@@ -88,7 +88,8 @@ def train(
 
         with partial(ctx, gpu)(): # distributed traing requires "-m fastai.launch"
             learn.fit_flat_cos(epochs, lr, wd=1e-2, cbs=cbs)
+    return learn
 
 # Cell
 def train_imagenette(gpu=None, bs=64, fp16=0, epochs=5, runs=1):
-    train(gpu=gpu, bs=bs, fp16=fp16, act_fn='Mish', opt='ranger', epochs=epochs, runs=runs)
+    return train(gpu=gpu, bs=bs, fp16=fp16, act_fn='Mish', opt='ranger', epochs=epochs, runs=runs)
