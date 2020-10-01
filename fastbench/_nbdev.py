@@ -2,12 +2,20 @@
 
 __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
-index = {"get_imagenette_data": "00_benchs.ipynb",
-         "get_env": "01_utils.ipynb",
-         "try_import": "01_utils.ipynb",
-         "show_install": "01_utils.ipynb"}
+index = {"torch.backends.cudnn.benchmark": "01_imdb.ipynb",
+         "fastprogress.MAX_COLS": "01_imdb.ipynb",
+         "get_dls": "02_tabular.ipynb",
+         "train": "02_tabular.ipynb",
+         "train_imagenette": "00_vision.ipynb",
+         "train_imdb": "01_imdb.ipynb",
+         "train_tabular": "02_tabular.ipynb",
+         "get_env": "09_utils.ipynb",
+         "try_import": "09_utils.ipynb",
+         "show_install": "09_utils.ipynb"}
 
-modules = ["benchs.py",
+modules = ["vision.py",
+           "imdb.py",
+           "tabular.py",
            "utils.py"]
 
 doc_url = "https://tcapelle.github.io/fastbench/"

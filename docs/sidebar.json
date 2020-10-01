@@ -1,7 +1,9 @@
 {
   "fastbench": {
     "Overview": "/",
-    "Benchmarks": "benchs.html",
+    "Image Benchmarks": "vision.html",
+    "IMDB classifier benchmark": "imdb.html",
+    "fastai's Tabular benchmark": "tabular.html",
     "Utils": "utils.html"
   }
 }

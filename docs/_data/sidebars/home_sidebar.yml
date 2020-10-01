@@ -10,8 +10,14 @@ entries:
       title: Overview
       url: /
     - output: web,pdf
-      title: Benchmarks
-      url: benchs.html
+      title: Image Benchmarks
+      url: vision.html
+    - output: web,pdf
+      title: IMDB classifier benchmark
+      url: imdb.html
+    - output: web,pdf
+      title: fastai's Tabular benchmark
+      url: tabular.html
     - output: web,pdf
       title: Utils
       url: utils.html

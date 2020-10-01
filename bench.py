@@ -1,10 +1,9 @@
 import torch
 from fastscript import *
 from fastbench.utils import show_install
-
-from fastbench.train_imagenette import main as image_main
-from fastbench.train_imdbclassifier import main as imdb_main
-from fastbench.train_wt2 import main as wt2_main
+from fastbench.vision import train_imagenette
+from fastbench.tabular import train_tabular
+from fastbench.imdb import train_imdb
 
 
 """Compute image benchmarks on imagenette"""
@@ -25,15 +24,15 @@ def main(
         
     #run image benchsmarks
     print('\nBenchmarking Imagenette')
-    image_main(gpu=gpu,epochs=epochs,fp16=0,bs=64,runs=runs)
-    image_main(gpu=gpu,epochs=epochs,fp16=1,bs=128,runs=runs)
+    train_imagenette(gpu=gpu,epochs=epochs,fp16=0,bs=64,runs=runs)
+    train_imagenette(gpu=gpu,epochs=epochs,fp16=1,bs=128,runs=runs)
     
     #run imdb
     print('\nBenchmarking IMDB')
-    imdb_main(gpu=gpu,epochs=epochs,fp16=0,bs=64,runs=runs)
-    imdb_main(gpu=gpu,epochs=epochs,fp16=1,bs=128,runs=runs)
+    train_imdb(gpu=gpu,epochs=epochs,fp16=0,bs=64,runs=runs)
+    train_imdb(gpu=gpu,epochs=epochs,fp16=1,bs=128,runs=runs)
     
     #run tabular
     print('\nBenchmarking Tabular')
-    imdb_main(gpu=gpu,epochs=epochs,fp16=0,runs=runs)
-    imdb_main(gpu=gpu,epochs=epochs,fp16=1,runs=runs)
+    train_tabular(gpu=gpu,epochs=epochs,fp16=0,bs=64,runs=runs)
+    train_tabular(gpu=gpu,epochs=epochs,fp16=1,bs=128,runs=runs)
