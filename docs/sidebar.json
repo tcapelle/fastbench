@@ -1,6 +1,7 @@
 {
   "fastbench": {
     "Overview": "/",
-    "Benchmarks": "benchs.html"
+    "Benchmarks": "benchs.html",
+    "Utils": "utils.html"
   }
 }

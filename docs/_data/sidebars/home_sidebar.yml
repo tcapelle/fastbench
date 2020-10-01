@@ -12,6 +12,9 @@ entries:
     - output: web,pdf
       title: Benchmarks
       url: benchs.html
+    - output: web,pdf
+      title: Utils
+      url: utils.html
     output: web
     title: fastbench
   output: web

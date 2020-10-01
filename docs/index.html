@@ -44,7 +44,14 @@ nb_path: "index.ipynb"
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>`pip install fastbench</p>
+<p>You should only need the latest fastai. Please create a clean new environment to launch the benchmarks.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>You can run this repo directly after cloning it.</p>
 
 </div>
 </div>
@@ -52,6 +59,16 @@ nb_path: "index.ipynb"
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="How-to-use">How to use<a class="anchor-link" href="#How-to-use"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>you should run this a script (it uses fascript under the hood)</p>
+<div class="highlight"><pre><span></span>python bench.py --gpu <span class="m">0</span>
+</pre></div>
+<p>will run the benchs on the gpu 0. (default is running using <code>dataparallel</code> on all available GPUs)</p>
+
 </div>
 </div>
 </div>
