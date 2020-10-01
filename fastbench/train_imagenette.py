@@ -25,33 +25,32 @@ def get_dls(size, woof, bs, sh=0., workers=None):
                        batch_tfms=batch_tfms)
     return dblock.dataloaders(source, path=source, bs=bs, num_workers=workers)
 
-@call_parse
 def main(
-    gpu:   Param("GPU to run on", int)=None,
-    woof:  Param("Use imagewoof (otherwise imagenette)", int)=0,
-    lr:    Param("Learning rate", float)=1e-2,
-    size:  Param("Size (px: 128,192,256)", int)=128,
-    sqrmom:Param("sqr_mom", float)=0.99,
-    mom:   Param("Momentum", float)=0.9,
-    eps:   Param("epsilon", float)=1e-6,
-    epochs:Param("Number of epochs", int)=5,
-    bs:    Param("Batch size", int)=64,
-    mixup: Param("Mixup", float)=0.,
-    opt:   Param("Optimizer (adam,rms,sgd,ranger)", str)='ranger',
-    arch:  Param("Architecture", str)='xresnet50',
-    sh:    Param("Random erase max proportion", float)=0.,
-    sa:    Param("Self-attention", int)=0,
-    sym:   Param("Symmetry for self-attention", int)=0,
-    beta:  Param("SAdam softplus beta", float)=0.,
-    act_fn:Param("Activation function", str)='Mish',
-    fp16:  Param("Use mixed precision training", int)=0,
-    pool:  Param("Pooling method", str)='AvgPool',
-    dump:  Param("Print model; don't train", int)=0,
-    runs:  Param("Number of times to repeat training", int)=1,
-    meta:  Param("Metadata (ignored)", str)=''
+    gpu=None,
+    woof=0,
+    lr=1e-2,
+    size=128,
+    sqrmom=0.99,
+    mom=0.9,
+    eps=1e-6,
+    epochs=5,
+    bs=64,
+    mixup=0.,
+    opt='ranger',
+    arch='xresnet50',
+    sh=0.,
+    sa=0,
+    sym=0,
+    beta=0.,
+    act_fn='Mish',
+    fp16=0,
+    pool='AvgPool',
+    dump=0,
+    runs=1,
+    meta=''
 ):
     "Training of Imagenette."
-
+    print(f' {arch=}; {opt=}; {epochs=}; {bs=}; {fp16=}; {runs=}')
     # gpu = setup_distrib(gpu)
     if gpu is not None: torch.cuda.set_device(gpu)
     if   opt=='adam'  : opt_func = partial(Adam, mom=mom, sqr_mom=sqrmom, eps=eps)
@@ -60,13 +59,11 @@ def main(
     elif opt=='ranger': opt_func = partial(ranger, mom=mom, sqr_mom=sqrmom, eps=eps, beta=beta)
 
     dls = get_dls(size, woof, bs, sh=sh)
-    if not gpu: print(f'epochs: {epochs}; lr: {lr}; size: {size}; sqrmom: {sqrmom}; mom: {mom}; eps: {eps}')
-
     m,act_fn,pool = [globals()[o] for o in (arch,act_fn,pool)]
 
     for run in range(runs):
-        print(f'Run: {run}')
-        learn = Learner(dls, m(n_out=10, act_cls=act_fn, sa=sa, sym=sym, pool=pool), opt_func=opt_func, \
+        print(f' Run: {run}')
+        learn = Learner(dls, m(n_out=10, act_cls=act_fn, sa=sa, sym=sym, pool=pool, pretrained=False), opt_func=opt_func, \
                 metrics=[accuracy,top_k_accuracy], loss_func=LabelSmoothingCrossEntropy())
         if dump: print(learn.model); exit()
         if fp16: learn = learn.to_fp16()
@@ -82,5 +79,4 @@ def main(
         ctx = learn.parallel_ctx if gpu is None and n_gpu else learn.distrib_ctx
 
         with partial(ctx, gpu)(): # distributed traing requires "-m fastai.launch"
-            print(f"Training in {ctx.__name__} context on GPU {gpu if gpu is not None else list(range(n_gpu))}")
             learn.fit_flat_cos(epochs, lr, wd=1e-2, cbs=cbs)

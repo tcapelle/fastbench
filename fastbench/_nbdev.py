@@ -2,9 +2,13 @@
 
 __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
-index = {}
+index = {"get_imagenette_data": "00_benchs.ipynb",
+         "get_env": "01_utils.ipynb",
+         "try_import": "01_utils.ipynb",
+         "show_install": "01_utils.ipynb"}
 
-modules = ["benchs.py"]
+modules = ["benchs.py",
+           "utils.py"]
 
 doc_url = "https://tcapelle.github.io/fastbench/"
 
