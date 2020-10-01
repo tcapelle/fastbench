@@ -5,7 +5,6 @@ __all__ = ['get_env', 'try_import', 'show_install']
 # Cell
 import fastai
 import fastprogress
-import subprocess
 from fastai.imports import *
 from fastai.torch_imports import *
 

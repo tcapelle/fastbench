@@ -11,9 +11,6 @@ from fastbench.train_wt2 import main as wt2_main
 
 welcome_str="""Welcome to fastbench! your friendly benchmark for GPU using fastai.\n"""
 
-
-
-
 @call_parse
 def main(
     gpu:   Param("GPU to run on", int)=None,
